@@ -61,7 +61,7 @@ sendLime.message
 
 ### On success
 
-```js
+```json
 {
   success: true,
   result: {
@@ -79,7 +79,7 @@ sendLime.message
 
 ### On error
 
-```js
+```json
 {
   success: false,
   error_code: 6910,
