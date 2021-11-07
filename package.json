@@ -3,7 +3,7 @@
   "description": "SendLime server SDK for Node.js. API support for SMS, Numbers, Verify (2FA) and more.",
   "author": "SendLime",
   "version": "1.0.0",
-  "license": "GPL-v3",
+  "license": "GPL-3.0-only",
   "keywords": [
     "sendlime",
     "sms",
