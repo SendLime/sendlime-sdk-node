@@ -7,21 +7,23 @@ For full API documentation refer to [developer.sendlime.com](https://developer.s
 # Table of Content <!-- omit in toc -->
 
 - [SendLime Server SDK for Node.js](#sendlime-server-sdk-for-nodejs)
-- [Installation](#installation)
-- [Constructor](#constructor)
-- [Send SMS Example](#send-sms-example)
-  - [Response Example](#response-example)
+  - [Installation](#installation)
+  - [Constructor](#constructor)
+    - [Properties](#properties)
+  - [Send SMS](#send-sms)
+    - [Properties](#properties-1)
+  - [Response](#response)
+    - [On success](#on-success)
+    - [On error](#on-error)
 - [Support](#support)
 
-# Installation
-
-Install the library
+## Installation
 
 ```js
 npm install @sendlime/server-sdk
 ```
 
-# Constructor
+## Constructor
 
 ```js
 const SendLime = require('@sendlime/server-sdk');
@@ -32,10 +34,12 @@ const sendLime = new SendLime({
 });
 ```
 
+### Properties
+
 - apiKey - API Key from Comm API. (Required)
 - apiSecret - API SECRET from Comm API. (Required)
 
-# Send SMS Example
+## Send SMS
 
 ```js
 sendLime.message
@@ -47,13 +51,15 @@ sendLime.message
   .catch((err) => console.log(err));
 ```
 
+### Properties
+
 - text - SMS text content. (Required)
 - to - Recipient mobile number. (Required)
 - from - Registered brand/masking name. (Optional)
 
-## Response Example
+## Response
 
-On success
+### On success
 
 ```js
 {
@@ -71,7 +77,7 @@ On success
 }
 ```
 
-On error
+### On error
 
 ```js
 {
