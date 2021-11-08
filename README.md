@@ -36,8 +36,8 @@ const sendLime = new SendLime({
 
 ### Properties
 
-- apiKey - API Key from Comm API. (Required)
-- apiSecret - API SECRET from Comm API. (Required)
+- apiKey - API Key from Sendlime API. (Required)
+- apiSecret - API Secret from SendLime API. (Required)
 
 ## Send SMS
 
