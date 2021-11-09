@@ -63,17 +63,17 @@ sendLime.message
 
 ```json
 {
-  success: true,
-  result: {
-    message_id: '50000064******B3',
-    from: '88096******44',
-    to: '88015******44',
-    price: '0.19',
-    status: 'accepted',
-    network: '47002'
+  "success": true,
+  "result": {
+    "message_id": "50000064******B3",
+    "from": "88096******44",
+    "to": "88015******44",
+    "price": "0.19",
+    "status": "accepted",
+    "network": "47002"
   },
-  error_code: null,
-  error_message: null
+  "error_code": null,
+  "error_message": null
 }
 ```
 
@@ -81,10 +81,10 @@ sendLime.message
 
 ```json
 {
-  success: false,
-  error_code: 6910,
-  error_message: 'Bad credentials',
-  result: null
+  "success": false,
+  "error_code": 6910,
+  "error_message": "Bad credentials",
+  "result": null
 }
 ```
 
