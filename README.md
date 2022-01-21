@@ -55,7 +55,7 @@ sendLime.message
 
 - text - SMS text content. (Required)
 - to - Recipient mobile number. (Required)
-- from - Registered brand/masking name. (Optional)
+- from - Registered brand or purchased number. (Optional)
 
 ## Response
 
