@@ -26,6 +26,28 @@ export default class Verify {
       return err.response.data as SendCodeResponse;
     }
   }
+
+  async checkCode(data: CheckCodeData): Promise<CheckCodeResponse> {
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization:
+        'Basic ' + Buffer.from(this.credentials.apiKey + ':' + this.credentials.apiSecret).toString('base64'),
+    };
+
+    const postData: CheckCodeData = {
+      request_id: data.request_id,
+      code: data.code,
+    };
+
+    try {
+      const res = await Http.post('/verify/check', postData, {
+        headers,
+      });
+      return res.data as CheckCodeResponse;
+    } catch (err: any) {
+      return err.response.data as CheckCodeResponse;
+    }
+  }
 }
 
 interface SendCodeData {
@@ -47,7 +69,12 @@ interface SendCodeResponse {
   } | null;
 }
 
-interface VerifyCodeResponse {
+interface CheckCodeData {
+  request_id: string;
+  code: string;
+}
+
+interface CheckCodeResponse {
   success: boolean;
   error_code: number | null;
   error_message: string | null;
