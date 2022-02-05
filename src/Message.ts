@@ -57,11 +57,6 @@ interface Data {
   text: string;
 }
 
-interface Credentials {
-  api_key: string;
-  api_secret: string;
-}
-
 interface SendSMSResponse {
   success: boolean;
   error_code: number | null;
