@@ -28,20 +28,22 @@ export default class Message {
   async sendSms(data: Data): Promise<SendSMSResponse> {
     this._validateData(data);
 
-    const credentials: Credentials = {
-      api_key: this.credentials.apiKey,
-      api_secret: this.credentials.apiSecret,
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization:
+        'Basic ' + Buffer.from(this.credentials.apiKey + ':' + this.credentials.apiSecret).toString('base64'),
     };
 
-    const postData: Data & Credentials = {
+    const postData: Data = {
       to: data.to,
       text: data.text,
-      ...credentials,
     };
     if (data.from) postData.from = data.from;
 
     try {
-      const res = await Http.post(Message.PATH, postData);
+      const res = await Http.post(Message.PATH, postData, {
+        headers,
+      });
       return res.data as SendSMSResponse;
     } catch (err: any) {
       return err.response.data as SendSMSResponse;
