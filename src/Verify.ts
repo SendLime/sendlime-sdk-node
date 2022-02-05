@@ -1,9 +1,47 @@
-import { Http } from "./utils";
+import isKhali from 'khali';
+import { Http, Logger } from './utils';
 
 export default class Verify {
+  private static get ERROR_MESSAGES() {
+    return {
+      phone_number: 'Invalid or no phone_number provided',
+      brand: 'Invalid or no brand provided',
+      request_id: 'Invalid or no request_id provided',
+      code: 'Invalid or no code provided',
+      code_length: 'Invalid code_length provided. Must be between 4 and 10',
+    };
+  }
+
+  private static get SEND_PATH() {
+    return '/verify';
+  }
+
+  private static get CHECK_PATH() {
+    return '/verify/check';
+  }
+
   constructor(private credentials: { apiKey: string; apiSecret: string }) {}
 
+  private _validateSendCodeData(data: SendCodeData) {
+    const validReg: RegExp = /^8801[3-9]\d{8}$/;
+    const mobileIsNotValid: boolean =
+      // is empty or, valid number
+      isKhali(data.phone_number) || !validReg.test(data.phone_number);
+
+    if (mobileIsNotValid) Logger.sendError(Verify.ERROR_MESSAGES.phone_number);
+    if (isKhali(data.brand)) Logger.sendError(Verify.ERROR_MESSAGES.brand);
+    if (data.code_length && (data.code_length < 4 || data.code_length > 10))
+      Logger.sendError(Verify.ERROR_MESSAGES.code_length);
+  }
+
+  private _validateCheckCodeData(data: CheckCodeData) {
+    if (isKhali(data.request_id)) Logger.sendError(Verify.ERROR_MESSAGES.request_id);
+    if (isKhali(data.code)) Logger.sendError(Verify.ERROR_MESSAGES.code);
+  }
+
   async sendCode(data: SendCodeData): Promise<SendCodeResponse> {
+    this._validateSendCodeData(data);
+
     const headers = {
       'Content-Type': 'application/json',
       Authorization:
@@ -18,7 +56,7 @@ export default class Verify {
     if (data.locale) postData.locale = data.locale;
 
     try {
-      const res = await Http.post('/verify', postData, {
+      const res = await Http.post(Verify.SEND_PATH, postData, {
         headers,
       });
       return res.data as SendCodeResponse;
@@ -28,6 +66,8 @@ export default class Verify {
   }
 
   async checkCode(data: CheckCodeData): Promise<CheckCodeResponse> {
+    this._validateCheckCodeData(data);
+
     const headers = {
       'Content-Type': 'application/json',
       Authorization:
@@ -40,7 +80,7 @@ export default class Verify {
     };
 
     try {
-      const res = await Http.post('/verify/check', postData, {
+      const res = await Http.post(Verify.CHECK_PATH, postData, {
         headers,
       });
       return res.data as CheckCodeResponse;
