@@ -6,15 +6,18 @@ For full API documentation refer to [developer.sendlime.com](https://developer.s
 
 # Table of Content <!-- omit in toc -->
 
-- [SendLime Server SDK for Node.js](#sendlime-server-sdk-for-nodejs)
-  - [Installation](#installation)
-  - [Constructor](#constructor)
-    - [Properties](#properties)
-  - [Send SMS](#send-sms)
+- [Installation](#installation)
+- [Constructor](#constructor)
+  - [Properties](#properties)
+- [Supported APIs](#supported-apis)
+- [SMS](#sms)
+  - [Send an SMS](#send-an-sms)
     - [Properties](#properties-1)
-  - [Response](#response)
-    - [On success](#on-success)
-    - [On error](#on-error)
+- [Verify](#verify)
+  - [Send a Code](#send-a-code)
+    - [Properties](#properties-2)
+  - [Verify a Code](#verify-a-code)
+    - [Properties](#properties-3)
 - [Support](#support)
 
 ## Installation
@@ -39,11 +42,22 @@ const sendLime = new SendLime({
 - apiKey - API Key from Sendlime API. (Required)
 - apiSecret - API Secret from SendLime API. (Required)
 
-## Send SMS
+## Supported APIs
+
+The following is a list of SendLime APIs and whether the Node Server SDK provides support for them:
+
+| API        | Supported? |
+|------------|------------|
+| SMS API    | ✅          |
+| Verify API | ✅          |
+
+## SMS
+### Send an SMS
 
 ```js
 sendLime.message
   .sendSms({
+    from: 'SendLime',
     text: 'Hello World!',
     to: '88015******44',
   })
@@ -51,42 +65,49 @@ sendLime.message
   .catch((err) => console.log(err));
 ```
 
-### Properties
+#### Properties
 
 - text - SMS text content. (Required)
 - to - Recipient mobile number. (Required)
 - from - Registered brand or purchased number. (Optional)
 
-## Response
+## Verify
 
-### On success
-
-```json
-{
-  "success": true,
-  "result": {
-    "message_id": "50000064******B3",
-    "from": "88096******44",
-    "to": "88015******44",
-    "price": "0.19",
-    "status": "accepted",
-    "network": "47002"
-  },
-  "error_code": null,
-  "error_message": null
-}
+### Send a Code
+```js
+sendLime.verify
+  .sendCode({
+    brand: 'SendLime',
+    phone_number: '88015******44',
+    code_length: 6,
+    locale: 'en-us',
+  })
+  .then((res) => console.log(res))
+  .catch((err) => console.log(err));
 ```
 
-### On error
+#### Properties
 
-```json
-{
-  "success": false,
-  "error_code": 6910,
-  "error_message": "Bad credentials",
-  "result": null
-}
+- brand - An 18-character alphanumeric string you can use to personalize the verification request SMS body, to help users identify your company or application name. (Required)
+- phone_number - The phone number to send the verification code. (Required)
+- locale - The language of the message received by user `bn-bd` `en-us`. (Optional)
+- code_length - Optional value to change the number of verification digits sent. Default value is 4. Allowed values are 4-10. (Optional)
+
+### Verify a Code
+```js
+sendLime.verify
+  .checkCode({
+    request_id: 'ffe06bb7560a3d350be63c586448b9f9',
+    code: '599364',
+  })
+  .then((res) => console.log(res))
+  .catch((err) => console.log(err));
 ```
+
+#### Properties
+
+- request_id - The request_id that you received in the response to the Verify request and used in the Verify check request. (Required)
+- code - The verification code entered by your user. (Required)
 
 # Support
 
