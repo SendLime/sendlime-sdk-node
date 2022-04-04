@@ -122,5 +122,6 @@ interface CheckCodeResponse {
     request_id: string;
     status: string;
     price: string;
+    to: string;
   } | null;
 }
