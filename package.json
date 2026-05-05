@@ -1,14 +1,13 @@
 {
   "name": "@sendlime/server-sdk",
-  "description": "SendLime server SDK for Node.js. API support for SMS, Numbers, Verify (2FA) and more.",
+  "description": "SendLime server SDK for Node.js. API support for SMS, WhatsApp, and balance.",
   "author": "SendLime",
-  "version": "1.2.2",
+  "version": "1.3.0",
   "license": "GPL-3.0-only",
   "keywords": [
     "sendlime",
     "sms",
-    "verify",
-    "2fa",
+    "whatsapp",
     "phone numbers"
   ],
   "homepage": "https://github.com/sendlime/sendlime-sdk-node",

@@ -12,5 +12,5 @@ export = SendLime;
 
 interface Credentials {
   apiKey: string;
-  apiSecret: string;
+  apiSecret?: string;
 }

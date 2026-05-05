@@ -20,7 +20,7 @@ export default class Verify {
     return '/verify/check';
   }
 
-  constructor(private credentials: { apiKey: string; apiSecret: string }) {}
+  constructor(private credentials: { apiKey: string; apiSecret?: string }) {}
 
   private _validateSendCodeData(data: SendCodeData) {
     const validReg: RegExp = /^8801[3-9]\d{8}$/;
@@ -44,8 +44,7 @@ export default class Verify {
 
     const headers = {
       'Content-Type': 'application/json',
-      Authorization:
-        'Basic ' + Buffer.from(this.credentials.apiKey + ':' + this.credentials.apiSecret).toString('base64'),
+      Authorization: 'Bearer ' + this.credentials.apiKey,
     };
 
     const postData: SendCodeData = {
@@ -70,8 +69,7 @@ export default class Verify {
 
     const headers = {
       'Content-Type': 'application/json',
-      Authorization:
-        'Basic ' + Buffer.from(this.credentials.apiKey + ':' + this.credentials.apiSecret).toString('base64'),
+      Authorization: 'Bearer ' + this.credentials.apiKey,
     };
 
     const postData: CheckCodeData = {
