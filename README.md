@@ -65,6 +65,20 @@ sendLime.message
 
 Pass `from` when you need to select a specific approved WhatsApp profile brand ID.
 
+You can also use the dedicated WhatsApp namespace:
+
+```js
+sendLime.whatsapp
+  .sendMessage({
+    to: '88015******44',
+    text: 'Hello from WhatsApp!',
+  })
+  .then((res) => console.log(res))
+  .catch((err) => console.log(err));
+```
+
+For compatibility, `sendLime.message.sendWhatsapp(...)` is also available as an alias.
+
 ## Check balance
 
 ```js

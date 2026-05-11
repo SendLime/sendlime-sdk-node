@@ -58,6 +58,10 @@ export default class Message {
     return this.sendSms({ ...data, channel: 'whatsapp' });
   }
 
+  async sendWhatsapp(data: Omit<Data, 'channel'>): Promise<SendSMSResponse> {
+    return this.sendWhatsApp(data);
+  }
+
   async getBalance(): Promise<BalanceResponse> {
     const headers = {
       Authorization: 'Bearer ' + this.credentials.apiKey,
